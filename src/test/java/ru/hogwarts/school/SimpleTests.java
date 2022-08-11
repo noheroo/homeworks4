@@ -10,8 +10,8 @@ import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.springframework.boot.test.context.SpringBootTest.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -77,8 +77,6 @@ class SimpleTests {
         assertThat(restTemplate.getForEntity("http://localhost:" + port + "/student/20", String.class)
                 .getStatusCode()).isEqualTo(NOT_FOUND);
     }
-
-    private String url = "http://localhost:" + port + "/student/20";
     private Faculty testFaculty() {
         Faculty testFaculty = new Faculty();
         testFaculty.setId(12L);

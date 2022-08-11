@@ -1,4 +1,4 @@
-package ru.hogwarts.homeworks4.record;
+package ru.hogwarts.school.record;
 
 public class FacultyRecord {
     private Long id;

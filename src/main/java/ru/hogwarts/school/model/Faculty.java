@@ -1,4 +1,4 @@
-package ru.hogwarts.homeworks4.model;
+package ru.hogwarts.school.model;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,7 +1,6 @@
 package ru.hogwarts.school;
 
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.record.FacultyRecord;
 
 import java.util.ArrayList;
 import java.util.List;

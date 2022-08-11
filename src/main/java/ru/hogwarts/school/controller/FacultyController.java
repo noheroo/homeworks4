@@ -1,4 +1,4 @@
-package ru.hogwarts.homeworks4.controller;
+package ru.hogwarts.school.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

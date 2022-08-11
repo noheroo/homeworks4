@@ -1,4 +1,4 @@
-package ru.hogwarts.homeworks4.handler;
+package ru.hogwarts.school.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -41,10 +41,16 @@ public class GlobalExceptionHandler {
                 .body("У студента не введен факультет");
     }
 
-    @ExceptionHandler(AvatarIsNullException.class)
-    public ResponseEntity<String> handleAvatarIsNullExceptionHandler(AvatarIsNullException e) {
+    @ExceptionHandler(AvatarNotFoundException.class)
+    public ResponseEntity<String> handleAvatarNotFoundExceptionHandler(AvatarNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("Аватар не найден");
+    }
+
+    @ExceptionHandler(ExtensionIsNullException.class)
+    public ResponseEntity<String> handleExtensionIsNullExceptionHandler(ExtensionIsNullException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("Загружаемый файл без расширения");
     }
 
 
