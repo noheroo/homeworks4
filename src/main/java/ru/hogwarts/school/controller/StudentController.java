@@ -1,4 +1,4 @@
-package ru.hogwarts.homeworks4.controller;
+package ru.hogwarts.school.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +47,18 @@ public class StudentController {
     @GetMapping("/{id}/faculty")
     public ResponseEntity<FacultyRecord> getStudentFaculty(@PathVariable long id) {
         return ResponseEntity.ok(studentService.getStudentFaculty(id));
+    }
+
+    @GetMapping("/quantity")
+    public ResponseEntity<Integer> getQuantityStudents() {
+        return ResponseEntity.ok(studentService.getQuantityStudents());
+    }
+    @GetMapping("/averageAge")
+    public ResponseEntity<Double> getAverageAge() {
+        return ResponseEntity.ok(studentService.getAverageAge());
+    }
+    @GetMapping("/lastFiveStudents")
+    public ResponseEntity<List<StudentRecord>> getLastFiveStudents() {
+        return ResponseEntity.ok(studentService.getLastFiveStudents());
     }
 }

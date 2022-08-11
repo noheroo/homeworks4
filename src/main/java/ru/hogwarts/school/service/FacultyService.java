@@ -1,10 +1,10 @@
-package ru.hogwarts.homeworks4.service;
+package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.component.RecordMapper;
 import ru.hogwarts.school.exception.EntranceColorOrNameAreWrongException;
 import ru.hogwarts.school.exception.FacultyNotFoundException;
-import ru.hogwarts.school.handler.repository.FacultyRepository;
+import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.record.FacultyRecord;
 import ru.hogwarts.school.record.StudentRecord;

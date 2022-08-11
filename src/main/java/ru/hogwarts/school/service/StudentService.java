@@ -1,4 +1,4 @@
-package ru.hogwarts.homeworks4.service;
+package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.component.RecordMapper;
@@ -6,8 +6,8 @@ import ru.hogwarts.school.exception.EntranceAgesAreWrongException;
 import ru.hogwarts.school.exception.FacultyNotFoundException;
 import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.exception.StudentWithoutFacultyException;
-import ru.hogwarts.school.handler.repository.FacultyRepository;
-import ru.hogwarts.school.handler.repository.StudentRepository;
+import ru.hogwarts.school.repository.FacultyRepository;
+import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.record.FacultyRecord;
@@ -76,5 +76,18 @@ public class StudentService {
             throw new StudentWithoutFacultyException();
         }
         return findStudent(id).getFaculty();
+    }
+
+    public Integer getQuantityStudents() {
+        return studentRepository.getQuantityStudents();
+    }
+
+    public Double getAverageAge() {
+        return studentRepository.getAverageAge();
+    }
+    public List<StudentRecord> getLastFiveStudents() {
+        return studentRepository.getLastFiveStudents().stream()
+                .map(recordMapper::toRecord)
+                .collect(Collectors.toList());
     }
 }
