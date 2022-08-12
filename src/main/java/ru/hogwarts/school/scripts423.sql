@@ -1,6 +1,6 @@
 select students.name, students.age, faculties.name
 from students
-         inner join faculties on students.faculty_id = faculties.id;
+         left join faculties on students.faculty_id = faculties.id;
 
 select students.name, avatars
 from students
