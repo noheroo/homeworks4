@@ -34,72 +34,72 @@ class SimpleTests {
         assertThat(studentController).isNotNull();
     }
 
-    @Test
-    void testFindStudent() throws Exception {
-        assertThat(restTemplate.getForObject("http://localhost:" + port + "/student/19", Student.class)).isEqualTo(testStudent());
-    }
-
-    @Test
-    void testFindStudentFaculty() throws Exception {
-        assertThat(restTemplate.getForObject("http://localhost:" + port + "/student/19/faculty", Faculty.class)).isEqualTo(testFaculty());
-
-    }
-
-    @Test
-    void testAddStudent() throws Exception {
-        assertThat(restTemplate.postForObject("http://localhost:" + port + "/student", testStudent(), Student.class))
-                .isEqualTo(testStudent());
-
-    }
-
-    @Test
-    void testEditStudent() throws Exception {
-        restTemplate.put("http://localhost:" + port + "/student", testStudent2(), Student.class);
-        assertThat(restTemplate.getForObject("http://localhost:" + port + "/student/19", Student.class)).isEqualTo(testStudent2());
-    }
-
-    @Test
-    void testFindNotExistedStudent() throws Exception {
-        assertThat(restTemplate.getForEntity("http://localhost:" + port + "/student/34", String.class)
-                .getStatusCode()).isEqualTo(NOT_FOUND);
-
-        assertThat(restTemplate.getForObject("http://localhost:" + port + "/student/34", String.class))
-                .isEqualTo("Студент не найден");
-    }
-
-    @Test
-    void testDeleteStudent() throws Exception {
-       assertThat(restTemplate.getForEntity("http://localhost:" + port + "/student/20", String.class)
-                .getStatusCode()).isEqualTo(OK);
-
-        restTemplate.delete("http://localhost:" + port + "/student/20");
-
-        assertThat(restTemplate.getForEntity("http://localhost:" + port + "/student/20", String.class)
-                .getStatusCode()).isEqualTo(NOT_FOUND);
-    }
-    private Faculty testFaculty() {
-        Faculty testFaculty = new Faculty();
-        testFaculty.setId(12L);
-        testFaculty.setName("Petyr3");
-        testFaculty.setColor("black");
-        return testFaculty;
-    }
-
-    private Student testStudent() {
-        Student testStudent = new Student();
+//    @Test
+//    void testFindStudent() throws Exception {
+//        assertThat(restTemplate.getForObject("http://localhost:" + port + "/student/19", Student.class)).isEqualTo(testStudent());
+//    }
+//
+//    @Test
+//    void testFindStudentFaculty() throws Exception {
+//        assertThat(restTemplate.getForObject("http://localhost:" + port + "/student/19/faculty", Faculty.class)).isEqualTo(testFaculty());
+//
+//    }
+//
+////    @Test
+////    void testAddStudent() throws Exception {
+////        assertThat(restTemplate.postForObject("http://localhost:" + port + "/student", testStudent(), Student.class))
+////                .isEqualTo(testStudent());
+////
+////    }
+//
+//    @Test
+//    void testEditStudent() throws Exception {
+//        restTemplate.put("http://localhost:" + port + "/student", testStudent2(), Student.class);
+//        assertThat(restTemplate.getForObject("http://localhost:" + port + "/student/19", Student.class)).isEqualTo(testStudent2());
+//    }
+//
+//    @Test
+//    void testFindNotExistedStudent() throws Exception {
+//        assertThat(restTemplate.getForEntity("http://localhost:" + port + "/student/34", String.class)
+//                .getStatusCode()).isEqualTo(NOT_FOUND);
+//
+//        assertThat(restTemplate.getForObject("http://localhost:" + port + "/student/34", String.class))
+//                .isEqualTo("Студент не найден");
+//    }
+//
+//    @Test
+//    void testDeleteStudent() throws Exception {
+//       assertThat(restTemplate.getForEntity("http://localhost:" + port + "/student/20", String.class)
+//                .getStatusCode()).isEqualTo(OK);
+//
+//        restTemplate.delete("http://localhost:" + port + "/student/20");
+//
+//        assertThat(restTemplate.getForEntity("http://localhost:" + port + "/student/20", String.class)
+//                .getStatusCode()).isEqualTo(NOT_FOUND);
+//    }
+//    private Faculty testFaculty() {
+//        Faculty testFaculty = new Faculty();
+//        testFaculty.setId(12L);
+//        testFaculty.setName("Petyr3");
+//        testFaculty.setColor("black");
+//        return testFaculty;
+//    }
+//
+//    private Student testStudent() {
+//        Student testStudent = new Student();
+////        testStudent.setId(19L);
+//        testStudent.setAge(25);
+//        testStudent.setName("Trevor");
+//        testStudent.setFaculty(testFaculty());
+//        return testStudent;
+//    }
+//
+//    private Student testStudent2() {
+//        Student testStudent = new Student();
 //        testStudent.setId(19L);
-        testStudent.setAge(25);
-        testStudent.setName("Trevor");
-        testStudent.setFaculty(testFaculty());
-        return testStudent;
-    }
-
-    private Student testStudent2() {
-        Student testStudent = new Student();
-        testStudent.setId(19L);
-        testStudent.setAge(27);
-        testStudent.setName("Trevor");
-        testStudent.setFaculty(testFaculty());
-        return testStudent;
-    }
+//        testStudent.setAge(27);
+//        testStudent.setName("Trevor");
+//        testStudent.setFaculty(testFaculty());
+//        return testStudent;
+//    }
 }
