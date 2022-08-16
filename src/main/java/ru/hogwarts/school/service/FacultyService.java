@@ -26,7 +26,7 @@ public class FacultyService {
         this.recordMapper = recordMapper;
     }
 
-    Logger logger = LoggerFactory.getLogger(FacultyService.class);
+    private final Logger logger = LoggerFactory.getLogger(FacultyService.class);
 
     public FacultyRecord addFaculty(FacultyRecord facultyRecord) {
         logger.info("Was invoked method for add new faculty");

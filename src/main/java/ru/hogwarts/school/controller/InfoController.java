@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/info")
-@Configuration
 public class InfoController {
     @Value("${server.port}")
     private Integer port;

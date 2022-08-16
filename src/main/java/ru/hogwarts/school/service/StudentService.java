@@ -33,7 +33,7 @@ public class StudentService {
         this.facultyRepository = facultyRepository;
     }
 
-    Logger logger = LoggerFactory.getLogger(StudentService.class);
+    private final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     public StudentRecord addStudent(StudentRecord studentRecord) {
         logger.info("Was invoked method for add new student");

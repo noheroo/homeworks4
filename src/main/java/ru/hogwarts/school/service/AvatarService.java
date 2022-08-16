@@ -42,7 +42,7 @@ public class AvatarService {
         this.recordMapper = recordMapper;
     }
 
-    Logger logger = LoggerFactory.getLogger(AvatarService.class);
+    private final Logger logger = LoggerFactory.getLogger(AvatarService.class);
 
     public void uploadAvatar(Long studentId, MultipartFile file) throws IOException {
         logger.info("Was invoked method for upload avatar");
