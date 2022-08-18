@@ -8,6 +8,7 @@ import ru.hogwarts.school.exception.EntranceAgesAreWrongException;
 import ru.hogwarts.school.exception.FacultyNotFoundException;
 import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.exception.StudentWithoutFacultyException;
+import ru.hogwarts.school.record.StudentRecord2;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.model.Faculty;
@@ -15,8 +16,12 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.record.FacultyRecord;
 import ru.hogwarts.school.record.StudentRecord;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.OptionalDouble;
+import java.util.stream.*;
+
+import static org.apache.commons.lang3.StringUtils.*;
 
 @Service
 public class StudentService {
@@ -123,5 +128,42 @@ public class StudentService {
         return studentRepository.getLastFiveStudents().stream()
                 .map(recordMapper::toRecord)
                 .collect(Collectors.toList());
+    }
+
+    public List<StudentRecord2> getSortedStudent(String firstLetter) {
+        logger.info("Was invoked method for get List with all students, which names started on letter {}", firstLetter);
+        return studentRepository.findAll().stream()
+                .map(recordMapper::toRecord2)
+                .filter(s -> startsWithIgnoreCase(s.getName(), firstLetter))
+                .peek(s -> s.setName(capitalize(s.getName())))
+                .sorted(Comparator.comparing(StudentRecord2::getName))
+                .collect(Collectors.toList());
+    }
+
+    public OptionalDouble getAverageAgeViaStream() {
+        logger.info("Was invoked method for get average age of students via stream");
+        return studentRepository.findAll().stream()
+                .map(recordMapper::toRecord2)
+                .mapToInt(StudentRecord2::getAge)
+                .average();
+    }
+
+    public void doSmt(boolean mode) {
+        if (mode) {
+            long start1 = System.currentTimeMillis();
+            int sum1 = Stream.iterate(1, a -> a + 1)
+                    .limit(1_000_000)
+                    .reduce(0, (a, b) -> a + b);
+            long time1 = System.currentTimeMillis() - start1;
+            logger.info("Measuring time without .parallel() is {}", time1);
+        } else {
+            long start2 = System.currentTimeMillis();
+            int sum2 = Stream.iterate(1, a -> a + 1)
+                    .parallel()
+                    .limit(1_000_000)
+                    .reduce(0, (a, b) -> a + b);
+            long time2 = System.currentTimeMillis() - start2;
+            logger.info("Measuring time with .parallel() is {}",time2);
+        }
     }
 }

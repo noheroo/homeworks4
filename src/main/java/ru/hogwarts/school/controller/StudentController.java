@@ -4,9 +4,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.record.FacultyRecord;
 import ru.hogwarts.school.record.StudentRecord;
+import ru.hogwarts.school.record.StudentRecord2;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/student")
@@ -60,5 +63,20 @@ public class StudentController {
     @GetMapping("/lastFiveStudents")
     public ResponseEntity<List<StudentRecord>> getLastFiveStudents() {
         return ResponseEntity.ok(studentService.getLastFiveStudents());
+    }
+
+    @GetMapping("/sorted/{firstLetter}")
+    public ResponseEntity<List<StudentRecord2>> getSortedStudents(@PathVariable String firstLetter) {
+        return ResponseEntity.ok(studentService.getSortedStudent(firstLetter));
+    }
+
+    @GetMapping("/getAverageAgeViaStream")
+    public ResponseEntity<OptionalDouble> getAverageAgeViaStream() {
+        return ResponseEntity.ok(studentService.getAverageAgeViaStream());
+    }
+
+    @GetMapping ("/doSmt/{mode}")
+    public void doSmt(@PathVariable boolean mode) {
+        studentService.doSmt(mode);
     }
 }

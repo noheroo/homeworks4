@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.hogwarts.school.component.RecordMapper;
 import ru.hogwarts.school.record.AvatarRecord;
 import ru.hogwarts.school.service.AvatarService;
 
@@ -65,5 +64,4 @@ public class AvatarController {
                                                             @RequestParam int pageSize) {
         return ResponseEntity.ok(avatarService.getAllAvatars(pageNumber, pageSize));
     }
-
 }

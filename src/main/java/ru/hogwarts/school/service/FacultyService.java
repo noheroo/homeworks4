@@ -6,13 +6,14 @@ import org.springframework.stereotype.Service;
 import ru.hogwarts.school.component.RecordMapper;
 import ru.hogwarts.school.exception.EntranceColorOrNameAreWrongException;
 import ru.hogwarts.school.exception.FacultyNotFoundException;
-import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.record.FacultyRecord;
 import ru.hogwarts.school.record.StudentRecord;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -88,4 +89,10 @@ public class FacultyService {
                 .collect(Collectors.toList());
     }
 
+    public Optional<FacultyRecord> getFacultyWhichHasTheLongestName() {
+        logger.info("Was invoked method for get faculty which has the longest name");
+        return facultyRepository.findAll().stream()
+                .map(recordMapper::toRecord)
+                .max(Comparator.comparing(f -> f.getName().length()));
+    }
 }
