@@ -18,13 +18,13 @@ import ru.hogwarts.school.record.StudentRecord;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.OptionalDouble;
 import java.util.stream.*;
 
 import static org.apache.commons.lang3.StringUtils.*;
 
 @Service
 public class StudentService {
+
 
     private final StudentRepository studentRepository;
     private final FacultyRepository facultyRepository;
@@ -37,6 +37,7 @@ public class StudentService {
         this.recordMapper = recordMapper;
         this.facultyRepository = facultyRepository;
     }
+
 
     private final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
@@ -163,7 +164,54 @@ public class StudentService {
                     .limit(1_000_000)
                     .reduce(0, (a, b) -> a + b);
             long time2 = System.currentTimeMillis() - start2;
-            logger.info("Measuring time with .parallel() is {}",time2);
+            logger.info("Measuring time with .parallel() is {}", time2);
         }
     }
+
+    public void getListOfNames1() {
+        List<String> listOfNames = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .collect(Collectors.toList());
+
+        printNames(listOfNames, 0);
+        printNames(listOfNames, 1);
+
+        new Thread(() -> {
+            printNames(listOfNames, 2);
+            printNames(listOfNames, 3);
+        }).start();
+
+        new Thread(() -> {
+            printNames(listOfNames, 4);
+            printNames(listOfNames, 5);
+        }).start();
+    }
+
+    public void getListOfNames2() {
+        List<String> listOfNames = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .collect(Collectors.toList());
+
+        printNamesSynchronized(listOfNames, 0);
+        printNamesSynchronized(listOfNames, 1);
+
+        new Thread(() -> {
+            printNamesSynchronized(listOfNames, 2);
+            printNamesSynchronized(listOfNames, 3);
+        }).start();
+
+        new Thread(() -> {
+            printNamesSynchronized(listOfNames, 4);
+            printNamesSynchronized(listOfNames, 5);
+        }).start();
+    }
+
+    private void printNames(List<String> listOfNames, int number) {
+        System.out.println(listOfNames.get(number));
+    }
+
+    private synchronized void printNamesSynchronized(List<String> listOfNames, int number) {
+        System.out.println(listOfNames.get(number));
+    }
+
 }

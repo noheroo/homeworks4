@@ -56,10 +56,12 @@ public class StudentController {
     public ResponseEntity<Integer> getQuantityStudents() {
         return ResponseEntity.ok(studentService.getQuantityStudents());
     }
+
     @GetMapping("/averageAge")
     public ResponseEntity<Double> getAverageAge() {
         return ResponseEntity.ok(studentService.getAverageAge());
     }
+
     @GetMapping("/lastFiveStudents")
     public ResponseEntity<List<StudentRecord>> getLastFiveStudents() {
         return ResponseEntity.ok(studentService.getLastFiveStudents());
@@ -75,8 +77,19 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAverageAgeViaStream());
     }
 
-    @GetMapping ("/doSmt/{mode}")
+    @GetMapping("/doSmt/{mode}")
     public void doSmt(@PathVariable boolean mode) {
         studentService.doSmt(mode);
+    }
+
+    @GetMapping("/getListOfNames1")
+    public ResponseEntity<Void> getListOfNames1() {
+        studentService.getListOfNames1();
+        return ResponseEntity.ok().build();
+    }
+    @GetMapping("/getListOfNames2")
+    public ResponseEntity<Void> getListOfNames2() {
+        studentService.getListOfNames2();
+        return ResponseEntity.ok().build();
     }
 }
