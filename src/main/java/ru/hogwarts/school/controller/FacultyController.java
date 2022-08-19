@@ -50,7 +50,7 @@ public class FacultyController {
     }
 
     @GetMapping("/facultyWhichHasTheLongestName")
-    public ResponseEntity<Optional<FacultyRecord>> getFacultyWhichHasTheLongestName() {
+    public ResponseEntity<FacultyRecord> getFacultyWhichHasTheLongestName() {
         return ResponseEntity.ok(facultyService.getFacultyWhichHasTheLongestName());
     }
 }

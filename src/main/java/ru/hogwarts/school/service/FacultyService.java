@@ -89,10 +89,11 @@ public class FacultyService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<FacultyRecord> getFacultyWhichHasTheLongestName() {
+    public FacultyRecord getFacultyWhichHasTheLongestName() {
         logger.info("Was invoked method for get faculty which has the longest name");
         return facultyRepository.findAll().stream()
+                .max(Comparator.comparing(f -> f.getName().length()))
                 .map(recordMapper::toRecord)
-                .max(Comparator.comparing(f -> f.getName().length()));
+                .orElseThrow(FacultyNotFoundException::new);
     }
 }

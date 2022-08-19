@@ -133,19 +133,19 @@ public class StudentService {
     public List<StudentRecord2> getSortedStudent(String firstLetter) {
         logger.info("Was invoked method for get List with all students, which names started on letter {}", firstLetter);
         return studentRepository.findAll().stream()
-                .map(recordMapper::toRecord2)
                 .filter(s -> startsWithIgnoreCase(s.getName(), firstLetter))
                 .peek(s -> s.setName(capitalize(s.getName())))
-                .sorted(Comparator.comparing(StudentRecord2::getName))
+                .sorted(Comparator.comparing(Student::getName))
+                .map(recordMapper::toRecord2)
                 .collect(Collectors.toList());
     }
 
-    public OptionalDouble getAverageAgeViaStream() {
+    public Double getAverageAgeViaStream() {
         logger.info("Was invoked method for get average age of students via stream");
         return studentRepository.findAll().stream()
-                .map(recordMapper::toRecord2)
-                .mapToInt(StudentRecord2::getAge)
-                .average();
+                .mapToInt(Student::getAge)
+                .average()
+                .orElseThrow(StudentNotFoundException::new);
     }
 
     public void doSmt(boolean mode) {
