@@ -1,8 +1,10 @@
 package ru.hogwarts.school.record;
 
-public class FacultyRecord {
+public class StudentRecord2 {
+
     private Long id;
-    private String name, color;
+    private String name;
+    private int age;
 
     public Long getId() {
         return id;
@@ -20,12 +22,11 @@ public class FacultyRecord {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    public int getAge() {
+        return age;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setAge(int age) {
+        this.age = age;
     }
-
 }

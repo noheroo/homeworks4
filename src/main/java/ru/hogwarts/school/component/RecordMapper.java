@@ -7,6 +7,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.record.AvatarRecord;
 import ru.hogwarts.school.record.FacultyRecord;
 import ru.hogwarts.school.record.StudentRecord;
+import ru.hogwarts.school.record.StudentRecord2;
 
 @Component
 public class RecordMapper {
@@ -17,7 +18,15 @@ public class RecordMapper {
         studentRecord.setName(student.getName());
         studentRecord.setAge(student.getAge());
         studentRecord.setFaculty(toRecord(student.getFaculty()));
-         return studentRecord;
+        return studentRecord;
+    }
+
+    public StudentRecord2 toRecord2(Student student) {
+        StudentRecord2 studentRecord2 = new StudentRecord2();
+        studentRecord2.setId(student.getId());
+        studentRecord2.setName(student.getName());
+        studentRecord2.setAge(student.getAge());
+        return studentRecord2;
     }
 
     public FacultyRecord toRecord(Faculty faculty) {
@@ -42,6 +51,13 @@ public class RecordMapper {
         Student student = new Student();
         student.setName(studentRecord.getName());
         student.setAge(studentRecord.getAge());
+        return student;
+    }
+
+    public Student toEntity2(StudentRecord2 studentRecord2) {
+        Student student = new Student();
+        student.setName(studentRecord2.getName());
+        student.setAge(studentRecord2.getAge());
         return student;
     }
 
