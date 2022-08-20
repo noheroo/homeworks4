@@ -154,7 +154,7 @@ public class StudentService {
             long start1 = System.currentTimeMillis();
             int sum1 = Stream.iterate(1, a -> a + 1)
                     .limit(1_000_000)
-                    .reduce(0, (a, b) -> a + b);
+                    .reduce(0, Integer::sum);
             long time1 = System.currentTimeMillis() - start1;
             logger.info("Measuring time without .parallel() is {}", time1);
         } else {
@@ -162,7 +162,7 @@ public class StudentService {
             int sum2 = Stream.iterate(1, a -> a + 1)
                     .parallel()
                     .limit(1_000_000)
-                    .reduce(0, (a, b) -> a + b);
+                    .reduce(0, Integer::sum);
             long time2 = System.currentTimeMillis() - start2;
             logger.info("Measuring time with .parallel() is {}", time2);
         }
@@ -193,25 +193,20 @@ public class StudentService {
                 .collect(Collectors.toList());
 
         printNamesSynchronized(listOfNames, 0);
-        printNamesSynchronized(listOfNames, 1);
 
-        new Thread(() -> {
-            printNamesSynchronized(listOfNames, 2);
-            printNamesSynchronized(listOfNames, 3);
-        }).start();
+        new Thread(() -> printNamesSynchronized(listOfNames, 2)).start();
 
-        new Thread(() -> {
-            printNamesSynchronized(listOfNames, 4);
-            printNamesSynchronized(listOfNames, 5);
-        }).start();
+        new Thread(() -> printNamesSynchronized(listOfNames, 4)).start();
     }
 
     private void printNames(List<String> listOfNames, int number) {
         System.out.println(listOfNames.get(number));
     }
 
-    private synchronized void printNamesSynchronized(List<String> listOfNames, int number) {
-        System.out.println(listOfNames.get(number));
+    private synchronized void printNamesSynchronized(List<String> listOfNames, int startNumber) {
+        for (int i = startNumber; i < startNumber+2 ; i++) {
+            System.out.println(listOfNames.get(i));
+        }
     }
 
 }
